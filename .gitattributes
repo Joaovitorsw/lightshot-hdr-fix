@@ -1,0 +1,10 @@
+* text=auto eol=lf
+*.cmd text eol=crlf
+*.cpp text eol=lf
+*.h text eol=lf
+*.hlsl text eol=lf
+*.py text eol=lf
+*.md text eol=lf
+*.yml text eol=lf
+vendor/** -whitespace linguist-vendored=true
+src/gpu_color_bytecode.h -whitespace linguist-generated=true

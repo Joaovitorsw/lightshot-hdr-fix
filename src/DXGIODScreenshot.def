@@ -1,0 +1,4 @@
+LIBRARY DXGIODScreenshot
+EXPORTS
+    TakeScreenshotExp=_TakeScreenshotExp@20 @1
+    GetLastCaptureReport=_GetLastCaptureReport@8 @2

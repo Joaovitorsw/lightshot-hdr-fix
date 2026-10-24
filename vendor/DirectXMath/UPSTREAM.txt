@@ -1,0 +1,7 @@
+DirectXMath: Microsoft official upstream, release jun2026 (version321).
+Pinned commit: 93e6399d6d15e1e57f80b5cea04d5a8eb892d693
+Source: https://github.com/microsoft/DirectXMath/tree/93e6399d6d15e1e57f80b5cea04d5a8eb892d693
+License: MIT, see LICENSE. Retrieved2026-10-24.
+Complete upstream Inc directory copied without changes. Add vendor/DirectXMath/Inc
+before Windows SDK includes to avoid mixing SDK version319 with these version321 inls.
+Reason: installed SDK DirectXMath.h exists but DirectXMathConvert.inl is missing.
