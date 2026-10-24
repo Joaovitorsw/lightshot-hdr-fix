@@ -19,9 +19,11 @@ jobs:
         if: runner.os == 'Windows'
         shell: powershell
         run: |
-          & tests\test_installer.ps1
+          # Rejection fixtures intentionally exit nonzero; inspect the suite
+          # process exit rather than a stale fixture's LASTEXITCODE.
+          powershell.exe -NoProfile -NonInteractive -File .\tests\test_installer.ps1
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          & tests\test_launcher.ps1
+          powershell.exe -NoProfile -NonInteractive -File .\tests\test_launcher.ps1
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
   color:
     runs-on: ubuntu-latest
