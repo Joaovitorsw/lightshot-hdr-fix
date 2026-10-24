@@ -14,7 +14,15 @@ jobs:
         with:
           python-version: '3.12'
       - name: Test version guards and copy isolation
-        run: python -m unittest discover -s tests -p test_package_copy.py -v
+        run: python -m unittest discover -s tests -p 'test_*.py' -v
+      - name: Test native Windows installer backend
+        if: runner.os == 'Windows'
+        shell: powershell
+        run: |
+          & tests\test_installer.ps1
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          & tests\test_launcher.ps1
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
   color:
     runs-on: ubuntu-latest
     steps:

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="400" viewBox="0 0 1280 400" role="img" aria-labelledby="title desc">
+<title id="title">Lightshot HDR Fix</title><desc id="desc">Keep HDR on. Capture in SDR. Independent Windows addon.</desc>
+<defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#0b1725"/><stop offset="1" stop-color="#241937"/></linearGradient><linearGradient id="a"><stop stop-color="#5eead4"/><stop offset="1" stop-color="#a78bfa"/></linearGradient></defs>
+<rect width="1280" height="400" rx="24" fill="url(#bg)"/><path d="M0 340H1280M1030 0V400" stroke="#fff" stroke-opacity=".07"/>
+<g font-family="Segoe UI,Arial,sans-serif"><text x="64" y="72" fill="#5eead4" font-size="17" letter-spacing="4">INDEPENDENT WINDOWS ADDON</text><text x="60" y="166" fill="#f8fafc" font-size="68" font-weight="700">Lightshot HDR Fix</text><text x="64" y="222" fill="#cbd5e1" font-size="30">Keep HDR on. Capture in SDR.</text><text x="64" y="280" fill="#94a3b8" font-size="21">FP16 capture · GPU tone mapping · Your familiar editor</text><text x="64" y="375" fill="#94a3b8" font-size="16">Original Lightshot required. SDR output. No HDR switch-off.</text></g>
+<g transform="translate(1060 115)" fill="none" stroke="url(#a)" stroke-width="7" stroke-linecap="round"><path d="M0 35V0H35M90 0H125V35M125 90V125H90M35 125H0V90"/><path d="M24 90L50 60L75 77L103 40"/></g><rect x="64" y="314" width="300" height="3" fill="url(#a)"/>
+</svg>

@@ -1,12 +1,39 @@
 # Lightshot HDR Fix
 
+[English](README.md) · [Português (Brasil)](docs/i18n/pt-BR.md) · [Español](docs/i18n/es.md) · [Français](docs/i18n/fr.md) · [Deutsch](docs/i18n/de.md) · [简体中文](docs/i18n/zh-CN.md) · [日本語](docs/i18n/ja.md)
+
+![Lightshot HDR Fix — keep HDR on, capture in SDR](docs/assets/hero.svg)
+
+[![Tests](https://github.com/Joaovitorsw/lightshot-hdr-fix/actions/workflows/tests.yml/badge.svg)](https://github.com/Joaovitorsw/lightshot-hdr-fix/actions/workflows/tests.yml)
+
+**[Download the Windows installer](https://github.com/Joaovitorsw/lightshot-hdr-fix/releases/latest/download/Lightshot-HDR-Fix-Setup.exe)** · No Python · No administrator rights · Original files preserved
+
 Unofficial Windows addon that fixes washed-out, overexposed Lightshot screenshots when HDR is enabled. FP16 Desktop Duplication preserves highlight detail; GPU tone mapping produces an SDR image for the existing Lightshot editor. The capture backend does not create the yellow Windows Graphics Capture border.
 
 [Download the addon](https://github.com/Joaovitorsw/lightshot-hdr-fix/releases/latest) · [Validation and limitations](docs/VALIDATION.md)
 
-## Instalar / Install
+## Install in a few clicks
 
-The release contains **only the replacement capture DLL and the patcher**. You need your own installed Lightshot. No original Lightshot executable or patched proprietary DLL is distributed.
+1. Install the supported original [Lightshot](https://app.prntscr.com/en/) first.
+2. [Download **Lightshot-HDR-Fix-Setup.exe**](https://github.com/Joaovitorsw/lightshot-hdr-fix/releases/latest/download/Lightshot-HDR-Fix-Setup.exe) and run it. No Python or administrator rights are needed.
+3. Setup detects a compatible installation. If none is found, browse to its version folder. If Lightshot is running, setup asks before closing it.
+4. Finish and open **Lightshot HDR Fix** from the Start menu. A desktop shortcut and launch at the end are optional.
+
+Version **0.3.0** installs for your Windows account, copies your installed Lightshot locally, and patches **only that copy**. The original installation stays intact. Windows startup is not changed automatically. To revert, close the corrected copy and start the original. Run one instance at a time: hotkeys, preferences and the application mutex may be shared.
+
+> The installer and addon are unsigned. SmartScreen may show a warning; verify that your download came from this repository’s Releases page before running it.
+
+Requires Windows 10/11 with DXGI 1.5-capable graphics and the exact x86 Lightshot build described below: installation folder **5.5.0.7**, executable version resource **5.5.0.4**. Other versions are deliberately rejected. Original Lightshot is **not included**. Output screenshots are SDR; your display’s HDR remains enabled.
+
+## What changes in the image?
+
+![Controlled gray-patch test: original 210/255/255/255; corrected 118/240/250/253](docs/assets/gray-patches.svg)
+
+This is **controlled gray-patch test data**, not a game screenshot. The new tone curve keeps brighter patches distinct. It does not promise universal color equivalence. Read the [validation and limitations](docs/VALIDATION.md) for the evidence.
+
+## Manual ZIP installation
+
+The manual ZIP contains **only the replacement capture DLL and the patcher**. You need your own installed Lightshot. No original Lightshot executable or patched proprietary DLL is distributed.
 
 Requirements: Windows 10/11 with DXGI 1.5-capable graphics, the supported x86 Lightshot build below, and Python 3.10 or newer. Tested on Windows 11 with HDR + SDR monitors.
 
@@ -27,8 +54,6 @@ py -3 .\scripts\package_copy.py --source "C:\Program Files (x86)\Skillbrains\lig
 Use a fresh destination directory. The patcher refuses existing destinations, unexpected hashes, incompatible binaries and linked/reparse paths. It copies the installed application and resources, backs up the two original DLLs inside the copy, and patches only the copy. A JSON manifest records hashes and offsets.
 
 If your installation is elsewhere, change `--source` to its internal version directory. There is no in-place update mode. To revert, exit the corrected copy and run your original installation.
-
-**Português:** saia do Lightshot original, aplique o comando acima e abra o executável da cópia. O HDR permanece ligado. Se quiser iniciar com o Windows, aponte a inicialização para o executável da cópia e desative a entrada antiga. O pacote público não modifica automaticamente seus atalhos ou inicialização.
 
 Application files are separated, but mutex, registry/preferences and hotkeys may be shared. Run one Lightshot instance at a time. The DLL is unsigned.
 
@@ -58,6 +83,8 @@ Measured on one 3440×1440 HDR + 1920×1080 SDR setup: subsequent complete core 
 
 ## Build
 
+To build the automatic `.exe` installer, see [installer build and tests](docs/INSTALLER.md).
+
 The supplied `Build.cmd` targets x86 using Clang/LLD, MSVC headers/static CRT, and Windows SDK libraries. Tested toolchain: VS 2022 VC 14.44, Windows SDK 10.0.22621.0, MSYS2 clang64.
 
 Default paths are in `Build.cmd`. Override `LIGHTSHOT_VSROOT`, `LIGHTSHOT_CLANG` and `LIGHTSHOT_LINK` if needed; the `llvm-rc.exe` path is also set in that script. The specified VC/SDK versions must be installed.
@@ -69,7 +96,7 @@ Build.cmd
 Build regenerates `src/gpu_color_bytecode.h` from `src/gpu_color.hlsl`, builds the DLL and diagnostic harnesses, then runs CPU/GPU color tests. The shader builder needs D3DCompiler_47; the shipped capture DLL has no runtime shader compiler dependency. Tests require a Windows graphics environment.
 
 ```powershell
-py -3 -m unittest discover -s tests -p test_package_copy.py -v
+py -3 -m unittest discover -s tests -p 'test_*.py' -v
 ```
 
 CI runs patcher tests on Windows/Linux and the portable CPU color reference on Linux. Real-monitor HDR calibration, D3D hardware/WARP tests and capture integration were performed locally; hosted CI does not validate an HDR display.
